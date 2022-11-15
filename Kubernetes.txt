@@ -1,0 +1,584 @@
+First Class of KUBERNETES
+-------------------------
+-------------------------
+
+NOTE: Best book of KUBERNETES is Kubernetes official documentation. Search anything and learn from it. (https://kubernetes.io/docs/home/)
+
+i. serverless
+ii. diff vs kubernetes and docker 
+iii. diff b/w serless and kubernetes
+iv. why kubernetes is not serverless?
+v. failure storage of Kubernetes(must read it)
+vi. Installation of Open Shift (RED HAT) --> You have to know how to install it.
+vii. TOOls to become Devops Engineer:
+	i. Jira vs SCM(git) vs Artifactory(jfrog) vs Jenkins --> Ye char chezen alag he to Microsoft Azure ne kia kia in sab ko 1 tool bana ke dedia is lia corporate 
+	level me Microsoft chalti he.
+	ii. AKE, EKS, GKE
+viii. what is kubernetes control plane, Coredns
+ix. in kubernetes we have pods not containers (deployment container pod he jha pe application chale gi)
+x. Mongodb database he to wo aise show nhi hogi q ke database browser me show nhi hoti to ap ko 1 environment chahia. Example Mongodb compass
+xi. what is port in kubernetes
+
+________________________________________________________________________________________________________________________________________________________
+
+COMMANDS:
+
+(Extra Information commands)
+. kubectl cluster-info
+. vim /etc/hosts
+. go to home -> pwd
+. cd .kube/
+. ls 
+. less config (kubernetes ke pass apni config file hoti he) (yha pe config file docker desktop ne bana ke di he, minikube apna banake dega, etc)
+. kute (Important file, Hacker can also hach from this file)
+. cronjobs
+. timedatectl
+. multiple containers
+
+i. kubectl get pod or kubectl get po , kubectl get po -w (give update) 
+ii. kubectl run mypod --image=nginx:alpine --port=80
+iii. kubectl get pod
+iv. kubectl port-forward mypod 8005:80 --> got to localhost:8005 (expose port temporary)
+iv. kubectl expose pod mypod --port=8005 --target-port=80 --type=LoadBalancer (this is service discovery using this we expose in permanent) (loadbalancer jo he wo
+	kia kare ga ke 1 port ya 1 se ziada port isi me chale ga, loadbalancer kam divinde kare ga) 
+v. kubectl get service or kubectl get svc
+vi. kubectl describe pod mypod4  
+vii. kubectl logs mypod
+
+
+ASSIGNMET
+1. Download mongodb compass, create pods on same port of mongodb (--image=mongo --port=27017 httpd)
+2. learn mongodb
+3. httpd --> make pod also of this image
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+16/oct/22 (onsite class)
+
+. Namespace: ap apne cluster me rete hue 1 space alga se banado
+. master me kia chal rha he aur worker me kia chal rha he
+. busybox: her cheez kerlegi  ye kam kare gi aur phir stop hojye gi. Nginx ki trah her wakt nhi chale gi
+. diff b/w job and pod
+
+COMMANDS:
+--------
+--------
+
+i. kubectl get ns
+ii. kubectl get pod -n name
+iii. kubectl get pod -o wide
+iv. kubectl get pod -A
+v. kubectl create ns uit
+vi. kubectl get resourcequotas
+vii. kubectl run busybox --image=busybox -- env ( -- ke bad jo likhe ge wo execution me aye ga)
+viii. 
+ix. kubectl logs -f
+
+Assignment: using busy box
+x. kubectl run busybox3 --image=busybox -n uit -- /bin/sh -c "echo hi;sleep 20;echo world;"
+xi. Now use above command in yaml 
+	kubectl run mypod1 --image=busybox --dry-run=client -o yaml -- /bin/sh -c "echo hi;sleep 12;echo world;" > jobs.yaml
+	or
+	kubectl run box4 --image busybox --dry-run=client -o yaml -- /bin/sh -c "echo hello; sleep 20; echo world;" > jobs.yaml
+xii. Now make more than 1 one container in above command
+xiii. image pull policy types
+xiv. kubectl create job busybox7 --image=busybox -n uit -- /bin/sh -c "echo hello;sleep 25; echo world;"
+xv. kubectl get job -n uit
+xvi. kubectl get pod -n uit
+xvii. kubectl create job myjob --image=busybox -n uit --dry-run -o yaml -- /bin/sh -c "echo hello; sleep 20; echo world;" > job.yaml
+
+
+
+___________________________________________________________________________________________________________________________________________________________
+								PORTAL VIDEOS BY SIR OSAMA
+___________________________________________________________________________________________________________________________________________________________
+
+i. Monolithic Architecture:
+	Designed to be self-contained has all that is needed in itself.
+   Issues:
+	. Slow release cycles
+	. In case of hardware failure, operations team will manually transfer to another server.
+
+ii. Microservice Architecture: 
+	Break down big applications into smaller components. Microservice are decoupled from each other. Microservices can be developed,
+	deployed, updated, scaled individually.
+	When we are working on Microservice Architecture so it has many Complexities. So that's why we need Kubernetes because it's do 
+	our work Automatically.
+	i. Linux is operating system of our Server Machine. Linux is for individual server.	
+	ii. Kubernetes is operating system of our Whole Cluster.And Kubernetes for all servers.
+
+iii. Scaling / Load Balancing:
+	When your application have more Traffic, so you need to increase your server. So it can done by automatically from Kubernetes.
+	Kubernetes will automatically
+	make another container from your image, and the container is in pod(server). And transfer the load to another pod. Also Viceversa
+	when traffic is less.
+
+iv. Self Healing:
+	Kubernetes check our applications health on described period if there is no response as given period. It automatically removes
+	and make another node. 
+
+v. Devops: Devops means Developer and Operation. A person who makes an Application and also Deploys it by own.
+
+Vi. Kubernetes Architecture:
+
+	a. Master Node:  Also called (Control Plane), controls the cluster and makes it function. Acts as a Kernel, because it works  like
+ 	a bridge of User and Nodes. 
+	Control plane consist of multiple components.
+		i. Etcd:  Stores key-value data of the cluster configuration.
+		ii.  Scheduler: Decide worker nodes to each deployable component of your application, depending on resource requirement and
+		resource availability of node
+		iii. Controller Manager: Those things decide by scheduler, implements by controller manager. Performing cluster level functions.
+		iv. Api Server: Communication of your User and your Worker Node.
+		
+	b. Worker Node: Worker Nodes are the machines that run your containerized applications.
+		i. Kube-Proxy: Runs on each worker node, enables pod to pod communication, pod to service communication, container to container
+		communication and api 
+		server communication.
+		ii. Kubelet: Manages and takes responsibility for containers on its node, that containers are running healthy or not.
+		iii. Container Runtime: Docker we use for containerize our application.
+
+	In Kubernetes when a user hits on anything what particular thing he wants. Comes first from Master Node. Then master node send this hit
+	to Cluster(in cluster we have many worker nodes called as Nodes) then in cluster sees from which worker node user wants service is running.
+	Then fulfill the hit.
+
+Vii. Pods: 
+	Each Pod has its own ip, hostname, processes and so on. Each pod is like a separate logical machine.  Pod is a container wrapper. We 
+	have more than one containers in our pod. One pod have two containers so it only exists in one worker node. This was not happened one
+	container is in specific worker node and one is in another worker node. This is not possible.
+
+
+viii. Environment Variables:
+	We use environment variables for doing our work fast. If we have a 50 pods so how to change their environment by doing manually is not
+	a good practice. Or if we shift from development to production so we were doing it manually we only do it by changing their environment
+	variable.
+
+i. POD: 
+	Pod itself an application. In pod we have containers one or more. We wrap our container in Pod. Smallest unit of Kubernetes is POD.
+
+ii. SCALING:
+	Ap ki application me rush ziada he to ap apne containers bada dete he.
+
+iii. LOAD BALANCE: 
+	Ap ke pass 4 container he, aur 1 container me load ziada he to ap baki 3 me load bara de ge take load equally divide hojye. 
+
+iv. SELF HEALING:
+	If one node is dead so kubernetes make another node and assign this dead node task to newer node.
+
+v. MASTER NODE (CONTROL PLANE) -> Holds all your cluster information. But application is running on worker node:
+	In master node we have four(4) things (etcd apiserver scheduler controllerManager)
+	I. ETCD: Every cluster information is in ETCD. And stores data in key value data.
+	II. SCHEDULER(planning): Jo node me availability hogi wo scheduler jo he schedule kerwa dega ap ke worker node ke oper. 
+	III. CONTROLLER MANAGER: perform cluster level functions, such as replicating components, keeping track of worker nodes,
+ 	handling node failures.
+	IV. API SERVER: User interact apiServer se hota he aur apiServer aage workerNode se interact kerta he.
+
+vi. WORKER NODE:	
+	I. KUBE-PROXY: In one worker node we have four applications. And two application(pod) have to communicate for doing their task,
+ 	so kubeproxy will help them to communicate.
+	II. CONTAINER RUNTIME: Making container (e.g Docker, etc)
+	III. KUBELET: Takes responsibility that container running smoothly and healthy.
+		
+
+1. In Kubernetes when ever you make any resource you must have 4 things 
+	(i. apiVersion(string), ii. kind(string), iii. metadata(object), iv. spec(object))
+2. We are allowed to change many things but not resource name (i.e Pod name)
+2. In spec we have -> object called 'containers' and under object ->  (i. list of objects, ii. list of dictionaries,
+   array of objects.)
+3. Sample Yaml file
+
+	apiVersion: v1
+	kind: Pod
+	metadata:
+  	  name: pod-name
+          labels:
+            type: frontend
+            env: development
+	spec :
+          containers:
+   	  - name: container-name
+            image: nginx
+
+4. Sample Replica Set 
+
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: replicaset-name
+spec:
+  replicas: 3
+  template:
+    metadata:
+      name: pod-name
+      labels:
+        env: development
+        type: backend
+    spec:
+      containers:
+      - name: container-name
+        image: nginx
+  selector:
+    matchLabels:
+      type: backend
+
+		
+
+COMMANDS
+________
+________
+
+1. kubectl cluster-info
+2. kubectl --help
+3. kubectl get nodes
+4. kubectl get nodes -o wide (use nodes or node or no)
+5. kubectl describe nodes docker-desktop(node name)
+6. kubectl describe nodes docker-desktop | grep status (we will also search many things linke events, etc..
+7. alias k="kubectl"
+     k get nodes
+8. kubectl run podname --image:nginx (creating pod)
+9. kubectl get pods 	OR 	kubectl get pods -w (watch mode)  (information of pods) (po or pod or pods)
+10. kubectl get pods -o wide (extra information of pods)
+11. kubectl describe pods podname (detail information of individual pods)
+12. kubectl explain pods
+13. Creating Pod using yaml
+	i. first make yaml file and save this file e.g file.yaml
+	ii. kubectl create -f yamlfile 
+14. kubectl run podname --image=nginx --dry-run=client -o yaml (Generate yaml file without writing it and without creating it)
+15. kubectl run podname --image=nginx --dry-run=client -o yaml > file.yaml 
+    kubectl create -f file.yaml
+16. kubectl port-forward podname 8000:80 (PORT FORWARD)
+17. kubectl run podname --image=nginx --labels type=backend,env==development	(Making container using run command and also set labels)
+18. kubectl get po --show-labels (show all labels)
+19. kubectl get po -L env	or	kubectl get po -L env,type (show all labels in column) 
+20. kubectl label pod podname new=label (Assigning label to existing pods)
+21. kubectl label pod podname env=production --overwrite (Overwriting labels)
+22. kubectl edit pod podname ( go to line then press 'dd' to delete that line then ':wq')
+23. kubectl apply -f yamlfile.yaml (Changing Yaml file then update using apply with the help of 'run' command)
+24. kubectl get pods -l env=production 	kubectl get pods -l env=production --show-labels (search those pods whose env=production)
+25. kubectl get po -l env=production,type=backend --show-labels (contains a multiple labels with a certain key/value)
+26. kubectl get pods -l env!=production --show-labels (Does not contains a label value against certain key)
+27. kubectl get pods -l type --show-labels (Does contains a label irrespective of the value)
+28. kubectl get pods -l '!type' --show-labels (Dont show label who have value of type)
+29. kubectl get pods -l 'type in(frontend, backend)' --show-labels (Show's pods whose label type have frontend or backend value only)
+30. kubectl get pods -l 'type notin(frontend, backend)' --show-labels (Don't show pod's whose label type have frontend or backend)
+31. kubectl exec -it podname /bin/bash (go in specific Pod)
+32. ANNOTATION
+	i. kubectl annotate pod podName name="Ahmed Raza Attari" email="ahmedraza8325@gmail.com" (To annotate existing pod)
+	ii. kubectl get pod podName -o yaml (Let's check by regenerating yaml from pod)
+33. NAMESPACE
+	i. kubectl create namespace namespace-name 	or kubectl create ns namespace-name
+ 	ii. kubectl get ns
+	iii. kubectl run pod-namespace --image=nginx --labels=env=development --namespace=production (--namespace or -n)
+	(to create a pod in any particular namespace)
+	iv. kubectl get pod --namespace=production 	or kubectl get pod --namespace production (to get any resource from any
+ 	particular namespace)
+	v. kubectl describe pod new-pod -n=production (production is namespace which we create)
+	vi. kubectl exec -it new-pod -n ns-development /bin/bash (go in specific Pod)
+34. DELETE PODS
+	i. kubectl delete pods podname
+	ii. kubectl delete pod pod-namespace --namespace production (delete pod from particular namespace)
+	iii.  kubectl delete pod -l 'type in(frontend, backend)' (delete pod based on label criteria)
+	iv. kubectl delete ns namespace-name (delete the all pods and namespace)
+	v. kubectl delete pods --all
+	vi. kubectl delete all --all (delete everything)
+35. REPLICA SETS:
+	1. Three things important in Replica Sets (i. Replicas, ii. selector, iii. template).
+	2. Atleast one label matches when creating Replicasets other wise Replicasets will not create.
+	3. If we delete one pod it will automatically regenerate it.
+	4. If we make more pod as we mention in 'Replicals' it will automatically delete it.
+	5. In kubernetes we will not edit important things in replicaset.
+	6. We will edit replicas increasse or decrease then use apply command for configuring.
+	i. kubectl explain replicasets
+	ii. kubectl create -f rs.yaml (make replicaset file then create it)
+	iii. kubectl get all
+	iv. kubectl get rs 	or 	kubectl get replicasets 	or	kubectl get rs -o wide
+	v. kubectl describe rs replica-set-name
+	vi. kubectl delete rs replicaset-name		or 		kubectl delete replicaset replica-set-name
+	vii. kubectl get rs,pods
+	viii. kubectl get rs,pods --show-labels
+	ix. kubectl scale rs replicasetName --replicas=12 (Scaling in replicase increase/decrease) (we also do it manually by using
+ 	edit command kubectl edit rs repilasetname)
+	x. kubectl delete rs replicasetName --cascade=orphan (Delete replicaset but not it's pods)
+36. DEPLOYMENT:
+	1. We use deployment for creating new version and rollin or rollout.
+	2. When we create deployment it will automatically create replicaSets and it will create pods.
+
+	i. vim deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: create-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      name: pod-name
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: cont-name
+        image: nginx
+
+	ii. kubectl create -f deployment.yaml (create deployment)
+	iii. kubectl rollout history deployment deploymentname (history checking)
+	iv. kubectl create -f deployment.yaml --record (now your history will record by using this command)
+	v. kubectl rollout history deployment deploymentname
+	vi. kubectl rollout status deployment deployment name
+	vii. kubectl get deployment
+	viii. kubectl set image deployment deploymentname nginx=nginx:1.16.1 --record (nginx is container name and nginx:1.16.1 is image) 
+	kubectl set image deployment create-deployment cont-name=nginx:1.16.1 --record
+	ix. kubectl describe pod/podname(see from kubernetes get all) (and see image is changed)
+	x. kubectl rollout undo deployment create-deployment 
+	xi. kubectl describe deployment
+	xii. kubectl rollout history deployment create-deployment --revision=3 (you see these numbers in history and use it and see the changes)
+ 	(example of 3 is below)
+deployment.apps/create-deployment with revision #3
+Pod Template:
+  Labels:       app=nginx
+        pod-template-hash=65ff5d8f44
+  Annotations:  kubernetes.io/change-cause: kubectl set image deployment create-deployment nginx=nginx:1.16.1 --record=true
+  Containers:
+   cont-name:
+    Image:      nginx
+    Port:       <none>
+    Host Port:  <none>
+    Environment:        <none>
+    Mounts:     <none>
+  Volumes:      <none>
+
+	xiii.  kubectl rollout undo deployment create-deployment --to-revision=2 (we also undo or rollback to specific revision)
+	xiv.  kubectl scale deployment/create-deployment --replicas=12 (we also change the replicas in deployment)
+37. HORIZONTAL POD AUTOSCALER:
+	i. kubectl autoscale rs replicaset-name --min=2 --max=5 --cpu-percent=80
+	ii. kubectl get hpa or horizontalpodautoscaler
+38. JOBS:
+	1. Onfailure: In this case pod statys but container will restart.
+	2. Never: In this case jobs controller starts a new pod and leaves the previous one unsuccessfull.
+	3. BackoffLimit: Here we specify a number of retries before considering a job as failed. 6 is default. When the jobs
+ 	is retries it takes time exponentially
+	   10s, 20s, 40s and max is 6 mintutes.
+	4. ActiveDeadLineSeconds:
+39. ENVIRONMENT VARIABLES:
+	Why wer create Environment Variables because we have application suppose our application is in development mode, so how set
+	development mode in all our application by doing manually is not a good practice we just create a environment and change it 
+	here when our application is up it automatically read environment from here.
+	Note: In alpine we use sh, because bash is update and newer version	
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: envar-demo
+  labels:
+    purpose: demonstrate-envars
+spec:
+  containers:
+  - name: envar-demo-container
+    image: gcr.io/google-samples/node-hello:1.0
+    env:
+    - name: DEMO_GREETING
+      value: "Hello from the environment"
+    - name: DEMO_FAREWELL
+      value: "Such a sweet sorrow"
+
+
+	i. env
+	ii. env myvar=somevale (Make our environment variable)
+	iii. kubectl delete all --all (delete everything)
+	iv. vi envars.yaml , write yaml file from here 
+	v. kubectl create -f envars.yaml (creating environment variable)
+	vi. kubectl get pods -w or kubectl get pods
+	vii. kubectl exec -it -- podName /bin/bash or /bin/bash ,	env (to check your environment on specif pod)
+	viii. kubectl exec podName -- env
+40. CONFIG MAP:
+	i. kubectl creater congigmap or cm configmapName --from-literal=fname=ahmed --from-literal=lname=raza
+	ii. kubectl get cm or configmap
+	iii. kubectl get cm or configmap configmapName -o yaml
+	iv. Create Config Map using Folder/Files
+		i. https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/ (vist here)
+		ii. mkdir -p configure-pod-container/configmap/
+		iii. wget https://kubernetes.io/examples/configmap/game.properties -O configure-pod-container/configmap/game.properties
+		     wget https://kubernetes.io/examples/configmap/ui.properties -O configure-pod-container/configmap/ui.properties
+		iv. kubectl create configmap game-config --from-file=configure-pod-container/configmap/
+		v. kubectl describe configmaps game-config
+		vi. kubectl get configmaps game-config -o yaml
+	v. Make a config map and its key and value are stored in dynamically in a pod
+	   Define a container environment variable with data from a single ConfigMap
+		1. Define an environment variable as a key-value pair in a ConfigMap.
+		   kubectl create configmap special-config --from-literal=special.how=very
+		2. Assign the special.how value defined in the ConfigMap to the SPECIAL_LEVEL_KEY environment variable in the Pod specification.			
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-test-pod
+spec:
+  containers:
+  - name: test-container
+    image: registry.k8s.io/busybox
+    command: [ "/bin/sh", "-c", "env" ]
+    env:
+      # Define the environment variable
+      - name: SPECIAL_LEVEL_KEY
+        valueFrom:
+          configMapKeyRef:
+            # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
+            name: special-config
+            # Specify the key associated with the value
+            key: special.how
+  restartPolicy: Never
+		3. Create the Pod:
+		   kubectl create -f https://kubernetes.io/examples/pods/pod-single-configmap-env-variable.yaml
+	vi. One Pod and have 2 configmaps
+		1. create two configmap
+		kubectl create configmap merging-one --from-literal=special.wow=very
+		kubectl create configmap merging-two --from-literal=log_level=INFO
+		2. create yaml file for Pod
+apiVersion: v1
+kind: Pod
+metadata:
+  name: merger-pod-1
+spec:
+  containers:
+  - name: test-container
+    image: nginx:alpine
+    command: [ "/bin/sh", "-c", "env" ]
+    env:
+    - name: SPECIAL_LEVEL_KEY
+      valueFrom:
+        configMapKeyRef:
+          name: merging-one
+          key: special.wow
+    - name: LOG_LEVEL
+      valueFrom:
+        configMapKeyRef:
+          name: merging-two
+          key: log_level
+  restartPolicy: Never
+		3.  kubectl create -f pod-multiple-configmap-env-variable.yaml
+	vii. Configure all key-value pairs in a ConfigMap as container environment variables (read the documentation where commands is written)
+	viii. We are creating configmap from file but we want to change the filename just take data, but change the filename
+		kubectl create configmap cm-changename --from-file=newname-here=ui.properties	(here we change 'ui.properties' name to 'newname-here')
+41. SECRET:
+	i. kubectl create secret generic secret-name --from-literal=fname=ahmedraza --from-literal=lname=attari	(generic is a type of secret, also we have more types)
+	ii. kubectl get secret secret-name -o yaml	or	kubectl get secret/secret-name -o yaml	(you will se here secret base64 value)
+	iii. echo (base64 value from above command) | base64 -d		(to decode it, get orignal value again)
+	iv. Now merging secret value in specif container from pod
+		1. vi pod-with-secret.yaml
+kind: Pod
+apiVersion: v1
+metadata:
+  name: pod-secret-env
+spec:
+  containers:
+  - name: container-secret-env
+    image: nginx
+    envFrom:
+    - secretRef:
+        name: secret-name
+
+		2. kubectl create -f pod-with-secret.yaml 
+		3. kubectl exec -it pod-secret-env -- /bin/bash
+		4. env
+42. SERVICES:
+	Services has many types ( a. Cluster ip, b. Node part, c. Load Balancer, d. External name )
+	a. create a replicaset
+	b. create a service.yaml file
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service-name
+spec:
+  ports:
+  - port: 8080
+    targetPort: 80
+  selector:
+    app: myapp
+  type: LoadBalancer
+
+	i. kubectl create -f service.yaml
+	ii. kubectl get svc or service
+	iii. http://localhost:8080/ 
+	iv. kubectl expose replicaset replicasetName --port=8080 --target-port=80 --type=LoadBalancer  --name service-name --selector=app=myapp (creating svc using cmd)
+43. HEALTH CHECK: (Learn from Slides types and yaml is writtend on slides)
+	Our application is running and there is a problem occurs and your application is stuck and starts going hang. And kubernetes thinks that it wants more resources
+	and kubernetes divide the load. So in this case we take help from Health Check. There are many types of health check
+	i. Liveness Probes: Restart your pod 
+	ii. Readiness Probes: Report that your pod is healthy or not. Capable of doing work or not.
+	iii. Startup Probes: A startup probe verifies whether the application within a container is started or not.
+44. VOLUMES:
+	a. Create vol.yaml file of volume
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myvol
+  labels:
+    appl: vollabel
+spec:
+  volumes:
+  - name: share-dir
+    emptyDir: {}
+  containers:
+  - name: container-one
+    image: nginx
+    ports:
+    - containerPort: 80
+    imagePullPolicy: IfNotPresent
+    command: ["sh"]
+    args: ["-c","while true; do date >> /var/cont-one/mylog.txt; sleep 5; done"]
+    volumeMounts:
+    - name: share-dir
+      mountPath: /var/cont-one
+  - name: container-two
+    image: nginx
+    ports:
+    - containerPort: 80
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+    - name: share-dir
+      mountPath: /var/cont-two
+  restartPolicy: Never
+
+	i. kubectl create -f vol.yaml
+	ii. kubectl describe myvol(volume name)
+	iii. kubectl exec -it myvol -c container-one -- /bin/bash
+
+45. PERSISTENT VOLUME:
+	NOTE: READ IT FROM SLIDE WHERE YOU UNDERSTAND MORE
+	Our pod will talk to -> Persistent-Volume-Claim it will talk to -> Persitent-Volume
+	a. Create persistent-volume yaml file
+	
+	i. kubectl get persistentVolume or pv
+
+
+
+	
+				
+
+____________________________________________________
+____________________________________________________
+Homework:
+---------
+---------
+1. Horizontal VS Vertical Scaling Cloud Computing.
+2. What is difference between Replicasets and Replication Controller.        
+3. Match Expression
+4. Horizontal pod autoscaler pg:88
+5. Deployment
+6. Jobs and Cronjobs 
+7. How to give configmap, secret, env in Deployment
+8. Config map as volume
+
+
+
+
+
+
+	
+
+
+
