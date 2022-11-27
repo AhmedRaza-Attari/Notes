@@ -152,6 +152,38 @@ viii. Environment Variables:
 	a good practice. Or if we shift from development to production so we were doing it manually we only do it by changing their environment
 	variable.
 
+ix. Kubernetes Resource Belongs To:
+	* Types of Resource:
+		i. Pod		
+		ii. Deployments	
+		iii. Jobs
+		iv. Others
+	
+	* Metadata Includes:
+		i. Name
+		ii. Namespace
+		iii. Labels
+		iv. Other information about the pod
+
+x. Spec:
+	Contains the actual description of the pod's contents such as 
+	. Pod's containers
+	. Volumes
+	. Security Context
+	. Other data
+
+xi. Status:
+	Contains the current information about the running pod, such as
+	. Pod's Conditionn
+	. Every container's description and status
+	. Pod's internal IP and other basic info
+
+xii. Imperiative:
+	Using only command
+
+xiii. Declarative:
+	Using yaml
+
 i. POD: 
 	Pod itself an application. In pod we have containers one or more. We wrap our container in Pod. Smallest unit of Kubernetes is POD.
 
@@ -220,7 +252,23 @@ spec:
     matchLabels:
       type: backend
 
-		
+
+5. Sample JOB yaml
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-3
+spec:
+  template:
+    spec:
+      containers:
+        - name: job1-container
+          image: docker/whalesay
+          command: ["cowsay", "This is a Kubernetes Job!"]
+      restartPolicy: Never
+  backoffLimit: 2
+  activeDeadlineSeconds: 500	
 
 COMMANDS
 ________
@@ -235,6 +283,7 @@ ________
 7. alias k="kubectl"
      k get nodes
 8. kubectl run podname --image:nginx (creating pod)
+   ( kubectl run <pod_name> --image=<image_name> --port=<container_exposed_port> --restart=Never )
 9. kubectl get pods 	OR 	kubectl get pods -w (watch mode)  (information of pods) (po or pod or pods)
 10. kubectl get pods -o wide (extra information of pods)
 11. kubectl describe pods podname (detail information of individual pods)
@@ -245,8 +294,12 @@ ________
 14. kubectl run podname --image=nginx --dry-run=client -o yaml (Generate yaml file without writing it and without creating it)
 15. kubectl run podname --image=nginx --dry-run=client -o yaml > file.yaml 
     kubectl create -f file.yaml
-16. kubectl port-forward podname 8000:80 (PORT FORWARD)
-17. kubectl run podname --image=nginx --labels type=backend,env==development	(Making container using run command and also set labels)
+16. PORT FORWARD:
+    	kubectl port-forward podname 8000:80 
+    	( kubectl port-forward <pod-name> <external_port>:<container_port> )
+17. CREATING POD with Labels:
+	( kubectl run <pod_name> --image=<image_name> --port=<container_exposed_port> --restart=Never --labels=key1=val1,key2=val2,.. )
+	 kubectl run podname --image=nginx --labels type=backend,env==development	
 18. kubectl get po --show-labels (show all labels)
 19. kubectl get po -L env	or	kubectl get po -L env,type (show all labels in column) 
 20. kubectl label pod podname new=label (Assigning label to existing pods)
@@ -273,7 +326,9 @@ ________
  	particular namespace)
 	v. kubectl describe pod new-pod -n=production (production is namespace which we create)
 	vi. kubectl exec -it new-pod -n ns-development /bin/bash (go in specific Pod)
+	vii. kubectl get pod --all-namespace (get resource from all namespace)
 34. DELETE PODS
+	( kubectl delete <resource_type> <resource_name> --namespace=<optional_namespace_name>
 	i. kubectl delete pods podname
 	ii. kubectl delete pod pod-namespace --namespace production (delete pod from particular namespace)
 	iii.  kubectl delete pod -l 'type in(frontend, backend)' (delete pod based on label criteria)
@@ -297,7 +352,8 @@ ________
 	viii. kubectl get rs,pods --show-labels
 	ix. kubectl scale rs replicasetName --replicas=12 (Scaling in replicase increase/decrease) (we also do it manually by using
  	edit command kubectl edit rs repilasetname)
-	x. kubectl delete rs replicasetName --cascade=orphan (Delete replicaset but not it's pods)
+	x. ( kubectl edit <resource_type> <resource_name> )
+	xi. kubectl delete rs replicasetName --cascade=false (Delete replicaset but not it's pods)
 36. DEPLOYMENT:
 	1. We use deployment for creating new version and rollin or rollout.
 	2. When we create deployment it will automatically create replicaSets and it will create pods.
@@ -357,13 +413,19 @@ Pod Template:
 	i. kubectl autoscale rs replicaset-name --min=2 --max=5 --cpu-percent=80
 	ii. kubectl get hpa or horizontalpodautoscaler
 38. JOBS:
-	1. Onfailure: In this case pod statys but container will restart.
-	2. Never: In this case jobs controller starts a new pod and leaves the previous one unsuccessfull.
+	1. Onfailure: If our container fails on container level, In this case pod statys but container will restart.
+	2. Never: If our container fails on container level, In this case jobs controller starts a new pod and leaves the previous one unsuccessfull.
 	3. BackoffLimit: Here we specify a number of retries before considering a job as failed. 6 is default. When the jobs
- 	is retries it takes time exponentially
-	   10s, 20s, 40s and max is 6 mintutes.
+ 	is retries it takes time exponentially 	10s, 20s, 40s and max is 6 mintutes.
 	4. ActiveDeadLineSeconds:
-39. ENVIRONMENT VARIABLES:
+	i. kubectl get job or jobs
+	ii. kubectl describe job job_name
+	iii. kubectl logs job_name
+39. Cron Jobs:
+	i. kubectl get cronjob or cj	
+	ii. kubectl describe cj cj_name
+	iii. kubectl logs cj_name
+40. ENVIRONMENT VARIABLES:
 	Why wer create Environment Variables because we have application suppose our application is in development mode, so how set
 	development mode in all our application by doing manually is not a good practice we just create a environment and change it 
 	here when our application is up it automatically read environment from here.
@@ -394,7 +456,7 @@ spec:
 	vi. kubectl get pods -w or kubectl get pods
 	vii. kubectl exec -it -- podName /bin/bash or /bin/bash ,	env (to check your environment on specif pod)
 	viii. kubectl exec podName -- env
-40. CONFIG MAP:
+41. CONFIG MAP:
 	i. kubectl creater congigmap or cm configmapName --from-literal=fname=ahmed --from-literal=lname=raza
 	ii. kubectl get cm or configmap
 	iii. kubectl get cm or configmap configmapName -o yaml
@@ -462,7 +524,7 @@ spec:
 	vii. Configure all key-value pairs in a ConfigMap as container environment variables (read the documentation where commands is written)
 	viii. We are creating configmap from file but we want to change the filename just take data, but change the filename
 		kubectl create configmap cm-changename --from-file=newname-here=ui.properties	(here we change 'ui.properties' name to 'newname-here')
-41. SECRET:
+42. SECRET:
 	i. kubectl create secret generic secret-name --from-literal=fname=ahmedraza --from-literal=lname=attari	(generic is a type of secret, also we have more types)
 	ii. kubectl get secret secret-name -o yaml	or	kubectl get secret/secret-name -o yaml	(you will se here secret base64 value)
 	iii. echo (base64 value from above command) | base64 -d		(to decode it, get orignal value again)
@@ -483,7 +545,7 @@ spec:
 		2. kubectl create -f pod-with-secret.yaml 
 		3. kubectl exec -it pod-secret-env -- /bin/bash
 		4. env
-42. SERVICES:
+43. SERVICES:
 	Services has many types ( a. Cluster ip, b. Node part, c. Load Balancer, d. External name )
 	a. create a replicaset
 	b. create a service.yaml file
@@ -503,13 +565,13 @@ spec:
 	ii. kubectl get svc or service
 	iii. http://localhost:8080/ 
 	iv. kubectl expose replicaset replicasetName --port=8080 --target-port=80 --type=LoadBalancer  --name service-name --selector=app=myapp (creating svc using cmd)
-43. HEALTH CHECK: (Learn from Slides types and yaml is writtend on slides)
+44. HEALTH CHECK: (Learn from Slides types and yaml is writtend on slides)
 	Our application is running and there is a problem occurs and your application is stuck and starts going hang. And kubernetes thinks that it wants more resources
 	and kubernetes divide the load. So in this case we take help from Health Check. There are many types of health check
 	i. Liveness Probes: Restart your pod 
 	ii. Readiness Probes: Report that your pod is healthy or not. Capable of doing work or not.
 	iii. Startup Probes: A startup probe verifies whether the application within a container is started or not.
-44. VOLUMES:
+45. VOLUMES:
 	a. Create vol.yaml file of volume
 
 apiVersion: v1
@@ -547,7 +609,7 @@ spec:
 	ii. kubectl describe myvol(volume name)
 	iii. kubectl exec -it myvol -c container-one -- /bin/bash
 
-45. PERSISTENT VOLUME:
+46. PERSISTENT VOLUME:
 	NOTE: READ IT FROM SLIDE WHERE YOU UNDERSTAND MORE
 	Our pod will talk to -> Persistent-Volume-Claim it will talk to -> Persitent-Volume
 	a. Create persistent-volume yaml file
@@ -572,6 +634,9 @@ Homework:
 6. Jobs and Cronjobs 
 7. How to give configmap, secret, env in Deployment
 8. Config map as volume
+
+
+
 
 
 
