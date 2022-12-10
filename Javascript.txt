@@ -1,0 +1,73 @@
+JAVASCRIPT
+---------
+---------
+
+1. TRUTH TABLE:
+_______________
+	
+Truth Table of Logical Not Operator
+!true = false
+!false = true
+!"cow" = false
+!"" = true
+!"0" = false
+!3 = false
+!0 = true
+
+istrue;
+Instead of this 
+if (istrue === false) {  }
+
+we do this
+if (!istrue) {  } NOTE: We use this because it takes only "1 bit" space in memory
+
+2. MEMORY ALLOCATION:
+_____________________
+
+i) let num = 12 (it takes '64 bit' floating point number(means point numbers are included))
+ii) let str = "Ahmed Raza Attari" (it takes '2 byte' per character including space) (17 * 2 = 34 byte)
+iii) let bol = true (it takes '1 bit')
+
+3. ARRAY CLONING BY REFERENCE OR BY VALUE:
+_________________
+
+// CLONING BY REFERENCE: Here in cloning array it can copy by their reference not their value
+        console.log('Reference Array');
+
+        let orignalArray = ['one', 'two', 'three', 'four', 'five'];
+        let cloningArray = orignalArray;
+        
+        console.log("Orignal Array: ", orignalArray);
+        console.log("Cloning Array: ", cloningArray);
+
+        orignalArray[2] = 'Changed in Orignal Array';
+
+        console.log("Orignal Array: ", orignalArray);
+        console.log("Cloning Array: ", cloningArray);
+        
+        cloningArray[1] = "Changed in Cloning Array";
+        
+        console.log("Orignal Array: ", orignalArray);
+        console.log("Cloning Array: ", cloningArray);
+
+
+        // CLONING BY VALUE (SPREAD OPERATOR)
+        console.log('Cloning By Value using SPREAD OPERATOR');
+
+        let orignalArray = ['one', 'two', 'three', 'four', 'five'];
+        let cloningByValue = [...orignalArray];
+
+        console.log('Orignal Array: ', orignalArray);
+        console.log('Cloning By Value Using SPREAD OPERATOR: ', cloningByValue);
+        
+        orignalArray[0] = "Changed in Orignal Array";
+        
+        console.log('Orignal Array: ', orignalArray);
+        console.log('Cloning By Value Using SPREAD OPERATOR: ', cloningByValue);
+        
+        cloningByValue[1] = "Changed in CloningByValue Array";
+        
+        console.log('Orignal Array: ', orignalArray);
+        console.log('Cloning By Value Using SPREAD OPERATOR: ', cloningByValue);
+
+

@@ -1,0 +1,65 @@
+FLEXBOX
+-------
+-------
+
+PARENT PROPERTIES:
+------------------
+
+1. flex-direction: default row | row-reverse | column | column-reverse
+	. row and column: as usual we know
+	. row-reverse: start from reverse right to left (default: left to right)
+	.column-reverse: starts from reverse bottom to top (default: top to bottom)
+
+2. flex-wrap: default nowrap | wrap | wrap-reverse 
+
+	wrap row : top to bottom
+	wrap-reverse row : bottom to top
+	wrap column : left to right 
+	wrap-reverse column : right to left
+
+	.nowrap: as usual not doing any thing wrap
+	. wrap:
+		i.   row wrap : starts from top to bottom and series starts from left to right
+		ii.  row-reverse wrap : starts from top to bottom and series starts from right to left.
+		iii. column wrap : starts from left to right and series starts from top to bottom.
+		iv.  column-reverse wrap : starts from left to right and series from bottom to top.
+	. wrap-reverse: 
+		i.   row wrap-reverse : starts from bottom to top and series starts from left to right.
+		ii.  row-reverse wrap-reverse : starts from bottom to top and series starts from right to left.
+		iii. column wrap-reverse : starts from right to left and series starts from top to bottom.
+		iv.  column-reverse wrap-reverse : starts from right to left and series starts from bottom to top. 
+
+. row wrap : starts from top to bottom and series starts from left to right
+. row wrap-reverse : starts from bottom to top and series starts from left to right.
+. row-reverse wrap : starts from top to bottom and series starts from right to left.
+. row-reverse wrap-reverse : starts from bottom to top and series starts from right to left.
+
+. column wrap : starts from left to right and series starts from top to bottom.
+. column wrap-reverse : starts from right to left and series starts from top to bottom.
+. column-reverse wrap : starts from left to right and series from bottom to top.
+. column-reverse wrap-reverse : starts from right to left and series starts from bottom to top. 
+
+3. flex-flow: flex-direction flex-wrap (short hand of these two properties)
+
+4. justify-content: flex-start | flex-end | center | space-between | space-evenly | space-around
+
+5. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	HARNE LAGO NA TO BOLO YAR ABHI ITNA KARLIA HE SOCH LIA HE TO KHARAB THORI KARO GA PELHE ITNI TAKLEEF JELHI KHARAB THORI KARO GA
