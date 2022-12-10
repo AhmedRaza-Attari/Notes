@@ -1,0 +1,243 @@
+____________________________________________________________
+
+1. why we use shebang in shell script.
+
+
+
+
+31/july/2022 
+
+1. There are two types of processes i. foreground, ii. background
+2. firefox & -> pgrep firefox -> kill -9 455(jo pgrep si mili he)
+3. sending process to background : firefox & -> ctrl + z (to stop) -> jobs -> bg 
+4. sleep 600 -> ctrl + z -> jobs -> bg -> jobs
+5. Receiving process which we send to background : fg %1 (1 is id which u see by using the jobs command)
+6. Start program by default on background : firefox & (& for background)
+7. ps, ps au, ps aux
+8. Kil process : sleep 500 -> jobs -> pgrep sleep -> kill id
+9. NI(nice value) : -20 most preferred, +20 least preferred
+10. top -> capitals (M sort for memory, P sort for cpu, E for memeory in smallest to biggest)
+11. Tar making: c for create archive, z for compress, v for verbose, f for filename : tar -czvf filename.tar.gz source-folder, tar czvf filename.tar.gz ./folder
+12. Tar extracting: x for extract : xzvf : 
+13. Zip: zip -r archive Ahmed/ 
+14. Seeing Memory in mb : free -m
+15. Seeing Memory in gb : free -g
+16. 
+
+___________________________________________________________________________________________________________________________________________________________________
+
+
+21/augut/2022
+
+1. what is diff b/w client and server
+jis se ap interact horhe wo client he.
+jis se ap 
+
+2. diff b/w registry and repo
+ans: registry desktop he, aur folder repo he
+
+3. If you want to allow docker to run on wsl then follow these below steps
+docker desktop -> setting -> resources -> wsl integration -> enable ubuntu
+
+
+COMMANDS:
+
+Images: nginx, alpine(light weight because it has limited version), apache
+
+1. docker version
+1b. docker --version
+1c. docker info
+Make Account on Docker Hub
+2. docker container run -d -p 8080:80 nginx:latest (-d for background, -p for port) (type container or not it will works)
+	docker run -d -p 8081:80 httpd:latest
+	docker run -d -p 8081:80 nginx:alpine
+3. docker ps or docker container ls
+4. go to browser: localhost:8080
+5. also check your localhost on command prompt: curl localhost:8080
+6. search image on command prompt: docker search imageName (docker search apache)
+7. docker stop id of container(id thori si b likh do)
+8. docker stop $(docker ps -a -q) stop all the process of docker container
+9. docker events : open another terminal then type 'docker events' then on other terminal do your work you will se what happens on 'docker events' terminal
+10. docker pause id of container
+11. docker unpause id of container	
+12. docker start id 
+13. docker run hello-world (we run this command for checking our docker is working properly or not)
+14. docker ps -a (see all containers and also exited containers)
+15. docker images -aq (see all docker images id)
+16. docker rmi $(docker images -aq) (delete all images from Docker)
+
+___________________________________________________________________________________________________________________________________________________________________
+
+
+28/augut/2022
+
+chapter # 5 (Read it from home it's a homework)
+
+1. Isolated Environment: sub apne apne container me chal rhe hote he. (For example: fridge me alag alag container hote he 1 me flour, 1 me bottle)
+2. What is internet and How internet works?
+ans: 1 system se dosre system connected he us ko internet kete he.
+3. nginx 1 web server he. (php apache pe chalta he)
+4. entrypoinnt or cmd : when you up container 
+5. run : when we build image
+
+COMMANDS:
+
+
+MAKING OUR OWN IMAGES AND CONTAINERS:
+------------------------------------
+------------------------------------
+
+1. Make folder make anywebsite under it.
+2. Dockerfile (Create Docker file like this and paste these 2 lines below which you see on nginx page from Dockerhub)
+	FROM nginx
+	COPY . /usr/share/nginx/html
+3. cd path (Go to powershell and go to the path of the website folder which we created) 
+4. sudo docker image build -t website:v1 . (Make Image : -t: it's a tag, website: Image name, v1: it's a version) (. ka matlab ye he ke agar ap Dockerfile name nhi doge to us ka path pora dena hoga '.' nhi. Magar Dockerfile he to bus '.' do chal jye ga)
+5. docker images or docker image ls (for seeing images)
+6. docker run -d --name website-c1 -p 8080:80 website:v1 (Making Docker Container) (website-c1: it's a container name) 
+	OR		 docker run -d --name website-c2 -p 8081:80 website:v2 
+	OR		 docker run -d --name website-c3 -p 8082:80 website:v2 
+ 
+NOTE:    (we will also make many containers from one(1) image. If we change the code after making our first image. And we will make more container from our first image
+	 so our code will not update because our first image have previous code. In order to update code we have to make another image) 
+7. docker ps (Showing Containers)
+8. localhost:8080 
+9. docker stats (for seeing the consumption of resources which our container is taking)
+
+
+GOING ON A SPECIFIC CONTAINER 'TERMINAL':
+------------------------------------
+------------------------------------
+
+1. sudo docker exec -it website-c3 /bin/bash (when this command executes you are going on a website-c3 container terminal)
+2. cd usr 
+3. cd share
+4. cd nginx
+5. cd html
+6. echo "<p>Updated new container (website-c3) of image 1(website-v1)</p>" >> index.html
+7. ctrl + pq (for quiting the specific (website-c3) terminal
+8. apt-get update, apt-get install vim nano (Because us me chezen install nhi hongi ap ko kerni hogi) (Because on that specific terminal there are limited things and you install what you want)
+9. docker inspect
+
+Nigel Poulton Repo
+        1. clone psweb
+        2. npm install
+        3. node app.js (server chal gya)
+        4. use it on localhost 
+
+Sir Osama Video Nigel Poulton Work
+------------------------------------
+------------------------------------_
+   
+* What is Dockerfile?
+
+i. FROM : From where image belongs.
+ii. LABEL : Author of this file.
+iii. RUN : jub ap Docker ki image ki build ker rhe hote he to build kerte hue jo command chalani hoti he wo command RUN me likhte he.
+iv. COPY : copy the thing
+v. WORKDIR : Container start from where when we run the Container
+vi. RUN : install the Dependencies 
+vii. EXPOSE : port
+viii. ENTRYPOINT OR CMD : when our image is build and then we use this command to run our container.
+
+
+* MAKING IMAGE FROM CONTAINER
+------------------------------------
+------------------------------------
+
+i. docker commit (containerID) or (containername) imagename:tagname (making Image from existing Container)
+ii. docker container run -d --name containername -p 8080:80 imagename:tagname (making container)
+
+
+* VOLUME
+	i. Why we need volume because if we make one container and if we change the data from volume so it will automatically update the data from that container, and if
+	   we update the data from container so it will also update the volume automatically.
+	ii. If we have one or more than one container so by chance our container crash or delete so we have no worries we will make another container and our new 
+	    container have new data because of volume.
+------------------------------------
+------------------------------------
+
+i. docker volume ls
+ii. docker volume create c1
+iii. docker volume ls
+iv. docker volume inspect c1
+v. docker volume rm volumename
+vi. docker volume rm volumename -f 
+vii. docker run -d --name c1cont -p 8080:80 -v c1vol:/usr/share/nginx/html c1img:latest 
+viii. cd \\wsl$\docker-desktop-data\data\docker\volumes (how to see volume when you are using wsl. Go to powershell and type this command)
+
+Not making any volume just give location and that's become your volume
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+pwd /mnt/d/sir_osama/website1
+
+1. docker run -d --name c2cont -p 8081:80 -v /mnt/d/sir_osama/website1/data/:/usr/share/nginx/html c1img:latest
+(is se chale ga nhi because hum ne data ka folder b dia he aur data ka folder empty he to wo data ke folder me jo he wo mount ker rha he to ap us ke ander jo banao ge
+wo mount hoga to ap us ke ander index.html banao ge to chale ga. Aur us me ap jo change karo ge using vs code wo usi wakt shi chale ga)
+
+2. docker run -d --name c3cont -p 8082:80 -v $(pwd):/usr/share/nginx/html c1img:latest
+(is ke ander b index.html hona chahia aur use ap change karo ge to wo b change hoga browser me)
+ 
+
+* POWER SHELL COMMANDS
+------------------------------------
+------------------------------------
+i. Get-Location
+ii. (How to make html file in Powershell)  Set-Content \\wsl$\docker-desktop-data\data\docker\volumes\c1vol\_data\index.html "<!DOCTYPE html><body> <h1> Volume  </h1> <p> Learning Volume </p> <p> This line is written in VOLUME </p>  </body> </html>"
+
+
+
+    extra info
+    ping google.com
+
+__________________________________________________________________________________________________________________________________________________________
+
+*******************************************************************************************************************************************************************
+									PORTAL VIDEOS
+*******************************************************************************************************************************************************************
+
+01. Docker : watched ( video # 6 ) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
