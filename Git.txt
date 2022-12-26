@@ -1,0 +1,5 @@
+* Different Types of Version Control System
+___________________________________________
+
+1. VSS: You have to lock first the file, and the file which is locked other can't work on them.
+2. 
