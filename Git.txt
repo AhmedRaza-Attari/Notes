@@ -2,4 +2,6 @@
 ___________________________________________
 
 1. VSS: You have to lock first the file, and the file which is locked other can't work on them.
-2. 
+2. SVN: Same as VSS, but you don't have to lock the file.
+3. GIT: Distributed Version Control System.
+
