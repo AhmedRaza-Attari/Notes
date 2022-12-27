@@ -5,3 +5,11 @@ ___________________________________________
 2. SVN: Same as VSS, but you don't have to lock the file.
 3. GIT: Distributed Version Control System.
 
+
+COMMANDS
+________
+________
+
+
+1. git config --global user.name "Your Name"
+2. git config --global user.email "Your Email"
