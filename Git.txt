@@ -6,6 +6,10 @@ ___________________________________________
 3. GIT: Distributed Version Control System.
 
 
+STUDY MATERIALS:
+		i. Git .ignore
+		https://www.freecodecamp.org/news/gitignore-file-how-to-ignore-files-and-folders-in-git/
+
 COMMANDS
 ________
 ________
@@ -13,3 +17,9 @@ ________
 
 1. git config --global user.name "Your Name"
 2. git config --global user.email "Your Email"
+3. git init (Initializing Git)
+4. git status
+5. git add filename or git add .
+6. git commit -m "any message"
+7. git log
+8. 
