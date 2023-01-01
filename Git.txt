@@ -21,5 +21,14 @@ ________
 4. git status
 5. git add filename or git add .
 6. git commit -m "any message"
-7. git log
-8. 
+7. git log (to see how much commit you did)
+8. Git Ignore:
+	i. Make .gitignore file	
+	ii. Which file or folder you dont want to track in git and don't want to show others.
+	iii. Write the name of that file/folder. Make sure you don't commit that file. 
+
+BRANCH COMMANDS:
+________________
+
+9. git branch (show list of branches) 
+10. 
