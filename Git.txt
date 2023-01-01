@@ -10,6 +10,7 @@ STUDY MATERIALS:
 		i. Git .ignore
 		https://www.freecodecamp.org/news/gitignore-file-how-to-ignore-files-and-folders-in-git/
 
+
 COMMANDS
 ________
 ________
@@ -27,8 +28,10 @@ ________
 	ii. Which file or folder you dont want to track in git and don't want to show others.
 	iii. Write the name of that file/folder. Make sure you don't commit that file. 
 
+
 BRANCH COMMANDS:
 ________________
+
 
 9. git branch (show list of branches) 
 10. git branch nameOfBranch (for creating branch)
