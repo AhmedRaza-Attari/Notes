@@ -38,4 +38,4 @@ ________________
 9. git branch (show list of branches) 
 10. git branch nameOfBranch (for creating branch) NOTE: For any branch, you create by staying in any branch the whole code is available on that branch you will create.
 11. git checkout nameOfBranch (moved into another branch which you had created)
-12. 
+	NOTE: If you make some files in newBranch and you also commit these files but these files are only showing in this branch not others branch 
