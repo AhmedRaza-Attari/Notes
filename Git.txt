@@ -1,9 +1,11 @@
-* Different Types of Version Control System
-___________________________________________
+* Different Types of Version Control System:
+	1. VSS: You have to lock first the file, and the file which is locked other can't work on them.
+	2. SVN: Same as VSS, but you don't have to lock the file.
+	3. GIT: Distributed Version Control System.
 
-1. VSS: You have to lock first the file, and the file which is locked other can't work on them.
-2. SVN: Same as VSS, but you don't have to lock the file.
-3. GIT: Distributed Version Control System.
+
+* NOTES:
+	i. Head: In which branch you are present. OR . Refers to Current branch.  
 
 
 STUDY MATERIALS:
@@ -34,4 +36,6 @@ ________________
 
 
 9. git branch (show list of branches) 
-10. git branch nameOfBranch (for creating branch)
+10. git branch nameOfBranch (for creating branch) NOTE: For any branch, you create by staying in any branch the whole code is available on that branch you will create.
+11. git checkout nameOfBranch (moved into another branch which you had created)
+12. 
