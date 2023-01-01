@@ -31,4 +31,4 @@ BRANCH COMMANDS:
 ________________
 
 9. git branch (show list of branches) 
-10. 
+10. git branch nameOfBranch (for creating branch)
