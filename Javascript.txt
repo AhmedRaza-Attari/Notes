@@ -6,7 +6,8 @@ TOPICS:
 _______
 _______
 
-1. Array Method : i. map, ii. reduce
+1. Array Method : i. map: When you want to perform an action on each element in a collection, and gather the results into a new array
+		  ii. reduce: When we want to get only one value from array we use reduce.
 
 
 1. TRUTH TABLE:
