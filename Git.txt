@@ -42,3 +42,37 @@ ________________
 		  So if we want to merge these two branch, we will merge by using merge commands.
 12. git merge newBranch (merge two branches)
 13. 
+
+
+
+gcloud compute instances create nucleus-jumphost-985 \
+          --network nucleus-vpc \
+          --zone us-west4-b  \
+          --machine-type f1-micro  \
+          --image-family debian-10  \
+          --image-project debian-cloud 
+
+
+
+
+gcloud container clusters create nucleus-backend \
+          --num-nodes 1 \
+          --network nucleus-vpc \
+          --zone us-west4-b
+gcloud container clusters get-credentials nucleus-backend \
+          --zone us-west4-b
+
+kubectl create deployment hello-server \
+          --image=gcr.io/google-samples/hello-app:2.0
+
+kubectl expose deployment hello-server \
+          --type=LoadBalancer \
+          --port 8081
+
+
+
+
+
+
+
+

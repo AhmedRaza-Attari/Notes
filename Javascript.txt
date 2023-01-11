@@ -2,6 +2,13 @@ JAVASCRIPT
 ---------
 ---------
 
+TOPICS:
+_______
+_______
+
+1. Array Method : i. map, ii. reduce
+
+
 1. TRUTH TABLE:
 _______________
 	
