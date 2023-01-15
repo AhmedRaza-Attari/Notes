@@ -82,4 +82,33 @@ __________________________________________
 	Syntactic sugar is a term for a more concise syntax that provides the same functionality for something that already exists. It aims to help make code shorter, 
 	therefore, easier to write. No new functionality is introduced.
 
+5. ADDITION OF TWO ARRAYS:
+
+        // EXAMPLE # 1
+        // Addition of Two Array
+
+        let box1 = [
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9]
+        ]
+
+        let box2 = [
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9]
+        ]
+
+        let box3 = [];
+
+        for (let i = 0; i < box1.length; i++) {
+            for (let j = 0; j < box1[i].length; j++) {
+                if (!box3[i]) box3[i] = [];
+                box3[i][j] = box1[i][j] + box2[i][j];
+            }
+        }
+
+        console.log(box3);
+
+
 
