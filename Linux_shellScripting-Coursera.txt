@@ -1,0 +1,100 @@
+LINUX:
+______
+
+1. The linux system consist of five (5) key layers.
+    a. User
+    b. Application
+    c. Operating system
+    d. Kernel
+    e. Hardware
+2. Linux Distros:
+            . Differ by UIs, their shell applications, and how the OS is supported and built.
+            . The design of a distro is created towards its specific audience.
+        i. Debian: Is stable, reliable, and open source.
+        ii. Red Hat Enterprise Linux: Is focused on enterprise customers  
+        iii. SUSE Linux Enterprise supports many architectures. Example: Raspberry Pi
+3. Paths in the Linux File System:
+    ~ --> Home directory
+    / --> Root directory
+    .. --> Parent of current directory
+    . --> Current directory
+4. Deb and Rpm Packages:
+    i. .deb files:
+        . Deb stands for Debian
+        . For Debian based distributions such as Debian, Ubuntu, and Mint.
+    ii. .rmp files:
+        . Rmp stands for Red Hat Package Manager
+        . For Red Hat-based distributions such as CentOS/RHEL, Fedora, and openSUSE
+    iii. Deb and Rpm formats are equivalent. If a package is only available in one format you can use alient to convert it.
+            - RPM to deb: alien <package-name>.rpm
+            - deb to RPM: alien -r <package-name>.deb
+5. Update & Upgrade:
+    - sudo apt update: to list all packages available on your distros. Download packages.
+    - sudo apt upgrade: to download all package which you update. Install packages
+
+
+COMMANDS:
+    
+    1 . sudo apt update - (to list all packages available on your distros. Download packages)
+    2 . sudo apt upgrade - (to download all package which you update. Install packages)
+    3 . ls / or ls /bin - (if you know the path you can see the list of any directory from any where)
+    4 . printenv SHELL - (default shell)
+    ______________________
+    * GETTING INFORMATION:
+    ______________________
+    5 . whoami - (username)
+    6 . id - (user id & group id)
+    7 . uname - (operating system name)
+    8 . ps - (running processes)
+    9 . top - (resource manager)
+    10 . df - (mounted file systems)
+    11 . man - (reference manual)
+    12 . date - (today's date)
+    _____________________
+    * WORKING WITH FILES:
+    _____________________
+    13 . cp - (copy file)
+    14 . mv - (change name or path)
+    15 . rm - (remove file)
+    16 . touch - (create file or update timestamp)
+    17 . chmod - (change/modify file permissions)
+    18 . wc - (get count of lines, words, characters in file)
+    19 . grep - (return lines in file matching pattern)
+    ________________________________________
+    * NAVIGATING & WORKING WITH DIRECTORIES:
+    ________________________________________
+    20 . ls - (list files and directory)
+    21 . find - (find files in directory tree)
+    22 . pwd - (get present working directory)
+    23 . mkdir - (make directory)
+    24 . cd - (change directory)
+    25 . rmdir - (remove directory)
+    26 . cat - (print file contents)
+    27 . more - (print file contents page-by-page)
+    28 . head - (print first N lines of file)
+    29 . tail - (print last N lines of file)
+    30 . echo - (print string or variable value)
+    ____________________________
+    * COMPRESSION AND ARCHIVING:
+    ____________________________
+    31 . tar - (archive a set of files)
+    32 . zip - (compress a set files)
+    33 . unzip - (extract files from a compressed zip archive)
+    _____________
+    * NETWORKING:
+    _____________
+    34 . hostname - (print hostname) 
+    35 . ping - (send packets to URL and print response)
+    36 . ifconfig - (display or configure system network interfaces)
+    37 . curl - (display contents of file at a URL)
+    38 . wget - (download file from URL)
+    39 . 
+    
+
+
+
+Make Clone of these Webapps:
+i. chat app
+ii. open sea https://opensea.io/ or binance.com https://www.binance.com/en/nft/marketplace or from your own
+iv. coinmarketcap 
+

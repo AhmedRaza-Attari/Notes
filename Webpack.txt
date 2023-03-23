@@ -1,0 +1,54 @@
+WEBPACK:
+_______
+
+i. We also make single page and multiple pages web-app using Webpack.
+ii. Bundler:
+iii. Loader:
+iv. compile
+
+
+Installation:
+_____________
+
+i. install node-js 
+ii. npm init -y
+iii. npm install --save-dev webpack webpack-cli 
+    ( --save-dev : means to save the package for development purpose )
+iv. make a folder "src" at root and make index.js in it.
+v. go to package-json --> scripts --> paste this --> "start": "webpack"
+vi. go to terminal --> npm start
+vii. in .gitignore --> node_modules 
+                       gist
+viii. make a file at root --> webpack.config.js
+
+    const path = require("path");
+    module.exports = {
+        mode: "development",                        //  (don't write it, this is for explanation, because by default is : "production")
+        devtool: "none",                            //  (don't write it, this is for explanation)
+        entry: "./src/index.js",                    //  (this is entry point, you can also change it)
+        output: {
+            filename: "main.js",                    //  (this is the file name, you can also change it)
+            path: path.resolve(__dirname, "dist")   //  (this is the folder name, you can also change it)
+        },
+    }
+
+ix. if you want that your work is done by file (webpack.config.js) --> go to package.json --> scripts --> "start": "webpack --config webpack.config.js"
+
+x. make a file main.css in src folder.
+xi. npm install --save-dev style-loader css-loader
+    CSS Loader: Css loader takes your css, and turns into javascript.
+    Style Loader: Style loader takes your javascript which is a css, and injected into DOM.
+
+    Visit webpack official website and copy css loader config file and paste it on "webpack.config.js"
+
+    module: {
+        rules: [
+          {
+            test: /\.css$/i,
+            use: ["style-loader", "css-loader"],
+          },
+        ],
+      }
+      
+xii. import "./main.css" --> in index.js
+xiii. change from webpack.config.js --> devtool: "source-map"
