@@ -2,11 +2,11 @@ LINUX:
 ______
 
 1. The linux system consist of five (5) key layers.
-    a. User
-    b. Application
-    c. Operating system
-    d. Kernel
-    e. Hardware
+        a. User
+        b. Application
+        c. Operating system
+        d. Kernel
+        e. Hardware
 2. Linux Distros:
             . Differ by UIs, their shell applications, and how the OS is supported and built.
             . The design of a distro is created towards its specific audience.
@@ -14,10 +14,10 @@ ______
         ii. Red Hat Enterprise Linux: Is focused on enterprise customers  
         iii. SUSE Linux Enterprise supports many architectures. Example: Raspberry Pi
 3. Paths in the Linux File System:
-    ~ --> Home directory
-    / --> Root directory
-    .. --> Parent of current directory
-    . --> Current directory
+        ~ --> Home directory
+        / --> Root directory
+        .. --> Parent of current directory
+        . --> Current directory
 4. Deb and Rpm Packages:
     i. .deb files:
         . Deb stands for Debian
@@ -26,69 +26,231 @@ ______
         . Rmp stands for Red Hat Package Manager
         . For Red Hat-based distributions such as CentOS/RHEL, Fedora, and openSUSE
     iii. Deb and Rpm formats are equivalent. If a package is only available in one format you can use alient to convert it.
-            - RPM to deb: alien <package-name>.rpm
-            - deb to RPM: alien -r <package-name>.deb
+        - RPM to deb: alien <package-name>.rpm
+        - deb to RPM: alien -r <package-name>.deb
 5. Update & Upgrade:
-    - sudo apt update: to list all packages available on your distros. Download packages.
-    - sudo apt upgrade: to download all package which you update. Install packages
+        - sudo apt update: to list all packages available on your distros. Download packages.
+        - sudo apt upgrade: to download all package which you update. Install packages
+6. Archiving and Compression:
+        ARCHIVES:
+                - Store rarely used information and preserve it
+                - Are a collection of data files and directories stored as a single file
+                - Make the collection more portable and serve as a backup in case of loss or corruption
+        FILE COMPRESSION:
+                - Reduces file size by reducing information redundancy
+                - Preserves storage space, speeds up data transfer, and reduces bandwidth load
+        ZIP:
+                - Zip compress files and folder prior to archiving them
+        TAR:
+                - Tar archives files and folder into a tarball, and can also compress it
 
 
 COMMANDS:
     
-    1 . sudo apt update - (to list all packages available on your distros. Download packages)
-    2 . sudo apt upgrade - (to download all package which you update. Install packages)
-    3 . ls / or ls /bin - (if you know the path you can see the list of any directory from any where)
-    4 . printenv SHELL - (default shell)
+    1 - sudo apt update - (to list all packages available on your distros. Download packages)
+    2 - sudo apt upgrade - (to download all package which you update. Install packages)
+    3 - ls / or ls /bin - (if you know the path you can see the list of any directory from any where)
+    4 - printenv SHELL - (default shell)
     ______________________
     * GETTING INFORMATION:
     ______________________
-    5 . whoami - (username)
-    6 . id - (user id & group id)
-    7 . uname - (operating system name)
-    8 . ps - (running processes)
-    9 . top - (resource manager)
-    10 . df - (mounted file systems)
-    11 . man - (reference manual)
-    12 . date - (today's date)
+    5 - returns username
+                - whoami
+    6 - user id & group id
+                - id -u
+                - id -u -n
+    7 - returns operating system name
+                - uname
+                - uname -s or uname -r or uname -v 
+                - uname -srv 
+    8 - currently running processes, root means process running with root user privileges 
+                - ps 
+                - ps -u 
+                - ps -u root
+                - ps -e :  (using the -e option, display all of the processes running on the system. The includes processes owned by other users.)
+    9 - top
+                task manager : show running task and their resource usage 
+                - top
+                - top -n 3(anyDigit)
+                Note: If you want to exit automatically after a specified number of repetitions, use the -n option
+                        Press the following keys while top is running to sort the table:
+                        - shit + M (Memory usage)
+                        - shift + P (CPU usage)
+                        - shift + N (Process ID or PID)
+                        - shift + T (Running time)
+    10 - disk usage of mounted file systems, -h : human readable 
+                - df
+                - df -h  
+                - df -h /path
+    11 - man
+                displays the user manual for any command that you provide as its argument.
+                - man commandName
+                - eg: man cat, man id, man top, man man   
+    12 - date
+                today's date, display system date and time 
+                - date
+                - date "+%D"
+                - date "+%j day of %y"
+                - date "+It's %A, the %j day of %Y"
+                - date -r fileName or folderName : (to know the date, when folder was created)
+                Note: 
+                        %d	Display the day of the month (01 to 31)
+                        %D  Display the date in (mm/dd/yy) this format
+                        %h	Displays the abbreviated month name (Jan to Dec)
+                        %H	Displays the hour
+                        %m	Displays the month of year (01 to 12)
+                        %Y	Displays the four-digit year
+                        %y  Display the two-digit year
+                        %T	Displays the time in 24 hour format as HH:MM:SS
+                        %j  Display what day from 365
+                        %A  Display what day from week (e.g: Friday)
+                        %a  Display what day from week (e.g: Fri)
     _____________________
     * WORKING WITH FILES:
     _____________________
-    13 . cp - (copy file)
-    14 . mv - (change name or path)
-    15 . rm - (remove file)
-    16 . touch - (create file or update timestamp)
-    17 . chmod - (change/modify file permissions)
-    18 . wc - (get count of lines, words, characters in file)
-    19 . grep - (return lines in file matching pattern)
+    13 - copy file
+                - cp /source/file /dest/filename :  (to copy files) 
+                - cp -r /source/dir /des/dir/ :  (to copy directories) ('-r' is recursively copy all folder)
+    14 - change name or path
+                - mv /source/file /des/dir/ :  (to move files)
+                - mv /source/dir /des/dir/ :  (to move directories)
+    15 - rm
+                remove file
+                - rm file.txt
+                - rm -i file.txt :  (ask permissions yes or no, before delete the file)
+    16 - touch - (create file or update timestamp)
+    17 - chmod
+                change/modify file permissions
+                - r, w and x :  (permissions: read, write and execute, respectively)
+                - u,g and o	:  (user categories: owner, group and all others, respectively)
+                - +, - :  (operations: grant and revoke, respectively)
+                - chmod -r usdoi.txt 
+                - chmod +r usdoi.txt
+                - chmod o-r usdoi.txt
+    18 - wc
+                get count of lines, words, characters in file
+                - wc filename
+                - wc -l fileName :  (how many lines in your file)
+                - wc -w fileName :  (how many words in your file)
+                - wc -c fileName :  (how many characters also counts new lines, each 1 character)
+    19 - grep - (return lines in file matching pattern)
+    20 - sort
+                - sort fileName
+                - sort -r fileName
+                Note: 'r' means reverse order
+    21 - uniq     
+                filter out repeated lines
+                - uniq fileName
+    21 - grep
+                global regular expression print
+                return lines in file matching pattern, according to your search
+                - grep ab text.txt :  (Case-Sensitive)
+                        (you are searching 'ab' character from file text.txt)
+                - grep -i M text.txt :  (Not Case-Sensitive)
+    22 - cut
+                extracts a selection from each line
+                extracts a field from each line
+                - cut -c 4-12 fileName
+                - cut -d ' ' -f2 fileName
+                - cut -d '-' -f3 fileName
+                Note:
+                        -d : delimiter, you can use any character as a delimiter
+                        -f : field
+                        Example: ahmed-raza-attari
+                                 abdul-razzaq-attari
+                        - cut -d '-' -f2 fileName(where above data is saved) 
+    23 - paste
+                merge of lines from different Paths     
+                - paste file_One.txt file_Two.txt file_Three.txt 
+                - paste -d ',' file_One.txt file_Two.txt file_Three.txt 
     ________________________________________
     * NAVIGATING & WORKING WITH DIRECTORIES:
     ________________________________________
-    20 . ls - (list files and directory)
-    21 . find - (find files in directory tree)
-    22 . pwd - (get present working directory)
-    23 . mkdir - (make directory)
-    24 . cd - (change directory)
-    25 . rmdir - (remove directory)
-    26 . cat - (print file contents)
-    27 . more - (print file contents page-by-page)
-    28 . head - (print first N lines of file)
-    29 . tail - (print last N lines of file)
-    30 . echo - (print string or variable value)
+    20 - ls 
+                list files and directory
+                - ls 
+                - ls b* :  (show all files and directory which starts from 'b')
+                - ls *b :  (show all files and directory which ends on 'b')
+                - ls -l :  (see in detail with permissions, owner, size and last-modified date)
+                - ls -hl :  (print sizes like 1K, 234M, 2G)
+                - ls -hs :  (print sizes like 1K, 234M, 2G)
+                - ls -a :  (list all files, including hidden files)
+                - ls -s :  (sort by file lize, largest first)
+                - ls -t :  (sort by last-modified date, newest first)
+                - ls -r :  (reverse the sort order)
+                - ls -R :  (recursively list all the directories and files, in your current directory tree)
+                - ls /home/username -l : (use this any where, because here you are using absolute path)
+    21 - find files in directory tree
+                - find path(/home/) -name "filename"
+                - find . -name "a.txt" :  (case sensitive)
+                - find . -iname "a.txt" :  (not case sensitive)
+                - find /etc -name '*.txt' :  (finds all .txt files in the subfolders of the /etc directory)
+                NOTE: "." -> represents current directory 
+    22 - pwd - (get present working directory)
+    23 - make directory
+                - mkdir folderName
+    24 - change directory
+                - cd 
+                - cd /absolutePath
+                - cd relativePath
+    25 - rmdir - (remove directory)
+    26 - cat - (print file contents)
+    27 - more
+                print file contents page-by-page
+                - spacebar for more content 
+                - 'q' for quit
+    28 - head
+                print first N lines of file
+                - head text.txt :  (by default print 10 lines)
+                - head -n 20 text.txt
+    29 - tail
+                - print last N lines of file
+                - tail text.txt :  (by default print 10 lines)
+                - tail -n 12 text.txt 
+    30 - echo
+                print string or variable value
+                - echo "What is your \n name"
+                - echo -e "I will write \nin two lines"
+                - echo -e "I am using \tTab key"
+                Note: - \n (start with new lines)
+                        - \t (tab in your string)
+                        - -e (for using special characters e.g: \n, \t)
     ____________________________
     * COMPRESSION AND ARCHIVING:
     ____________________________
-    31 . tar - (archive a set of files)
-    32 . zip - (compress a set files)
-    33 . unzip - (extract files from a compressed zip archive)
+    31 - tar
+                archive a set of files
+                - tar -cf making_tar.tar folder/file
+                - tar -czf making_tar.tar.gz folder/folder
+
+                list archive contents
+                - tar -tf tar_file.tar
+
+                extract files and folders
+                - tar -xf tar_file.tar 
+                - tar -xf notes.tar notes 
+                - tar -xzf notes.tar.gz notes
+                - tar -xzf notes.tar.gz
+    32 - zip
+                - compress files and directories to an archives
+                - zip notes.zip notes
+    33 - unzip
+                - extract and decompress zipped archive
+                - unzip notes.zip
     _____________
     * NETWORKING:
     _____________
-    34 . hostname - (print hostname) 
-    35 . ping - (send packets to URL and print response)
-    36 . ifconfig - (display or configure system network interfaces)
-    37 . curl - (display contents of file at a URL)
-    38 . wget - (download file from URL)
-    39 . 
+    34 - hostname - (print hostname) 
+    35 - ping - (send packets to URL and print response)
+    36 - ifconfig - (display or configure system network interfaces)
+    37 - curl - (display contents of file at a URL)
+    38 - wget - (download file from URL)
+    ____________________________
+    * Managing File permissions:
+    ____________________________
+
+    
+    
     
 
 
