@@ -43,6 +43,182 @@ ______
                 - Zip compress files and folder prior to archiving them
         TAR:
                 - Tar archives files and folder into a tarball, and can also compress it
+7. Scripts:
+        - List of commands interpreted by a scripting language
+        - Commands can be entered interactively or listed in a text file
+        - Scripting languages are interpreted at runtime
+        - Scripting is slower to run, but faster to develop     
+7a. Script used for:
+        - Widely used to automate process
+        - ETL jobs, file backups and archiving, system admin
+        - Used for application integration, plug-in development, web apps, and many other tasks
+7b. Shell Scripts and the 'shebang'
+        - Shell script executable text file with an interpreter directive
+        - Aka 'shebang' directive: #!interpreter [optional-arg]
+        - 'interpreter' -path to an executable program
+        - 'optional argument' single argument string
+7c. Shell Script Directives:
+        #!/bin/sh
+        #!/bin/bash
+8. Pipes and Filter:
+        Filters are shell command, which:
+        - Take input from standard input
+        - Send output to standard output
+        - Transform input data into output data
+        - Examples are wc, cat, more, head, sort, grep, ...
+        - Filters can be chained together
+
+        Pipe command - |
+        - For chaining filter commands
+          command1 | command2
+        - Output of command 1 is input of command 2
+        - Pipe stands for pipeline
+9. Shell Variables:
+        - Scope limited to shell
+        - Set - list all shell variables
+        - defining shell variables:
+                - var_name='value'
+                - Note: No space around '='
+                - echo $var_name
+        - deleting shell variables: unset var_name
+10. Environment Variables:
+        - Extended scope : export var_name
+        - 'env' list all environment variables
+        - env | grep "var_name"
+11. Useful Features of Bash Shell:
+        i. Metacharacters:
+                Metacharacters have meaning to the shell
+                - # precedes a comment
+                  Example: # some metacharacters
+                - ; command separator
+                  Example: echo "Hello"; whoami
+                - * filename expansion wildcard
+                  Example:
+                        - ls /bin/ba*
+                        - ls /etc/*.conf
+                        - ls /var/log/b*.log  
+                - ? single character wildcard in filename expansion
+                  Example: ls /bin/?ash or ls /bin/?grep
+        ii. Quoting:
+                Quoting is used to interpret or escape metacharacter meaning
+                - \ escape special character interpretation. Backslash removes the meaning of the special character that follows it
+                  Example:
+                        - echo '\$1 each' 
+                        - echo The symbol for multiplicaton is \*
+                - " " A pair of double quotes removes special meanings of all special characters within them except another double quote variable substitution and command substitution..
+                  Example:
+                        - echo "$1 each"
+                        - echo "Current user name: $USERNAME"  
+                - ' ' A pair of single quotes removes special meanings of all special characters within them (except another single quote).
+                  Example:
+                        - echo '$1 each'
+                        - echo 'Following are some special characters in shell - < > ; " ( ) \ [ ]  '
+        iii. I/O Redirection:
+                Input/Output, or I/O redirection, refers to a set of features used for redirecting
+                -   >    Redirect output to file
+                    Example: echo "my name is " > self.txt
+                -   >>   Append output to file
+                    Example: echo "Ahmed Raza Attari" >> self.txt
+                -   2>   Redirect standard error to file
+                    Example:
+                        - anyword
+                        - garbage(anyword) 2> err.txt
+                        - cat err.txt
+                -   2>>  Append standard error to file
+                -   <    Redirect file contents to standard input 
+                    Example:
+                        - tr "[a-z]" "[A-Z]" < newoutput.txt
+        iv. Command Substitution:
+                - Replace command with its output $(command) or `command`
+                - Store output of 'pwd' command in 'here'
+                - here=$(pwd)
+                - echo $here
+        v. Command Line Arguments:
+                - Program arguments specified on the command line
+                - A way to pass arguments to a shell script
+                - Usage: 
+                        ./MyBashScript.sh arg1 arg2
+                - Example # 1:
+                        - Create a simple bash script that handles two arguments.
+                        - argu.sh       
+                                . echo "Hi $1 $2"
+                                . echo "$1 is your firstname"
+                                . echo "$2 is your lastname"
+                        - chmod +x wish.sh
+                        ./wish.sh Ahmed Raza
+                - Example # 2:
+                        - Let us create a bash script named dirinfo.sh that takes the directory name as an argument and prints the total number of the the directories and the number of files in it. 
+                        - We will make use of the find command with -type option which will list only files or directories depending upon the usage of d switch or f switch respectively.
+                        - The command wc -l will count the lines.
+                        - Save the below code as dirinfo.sh
+                                #! /bin/bash
+                                dircount=$(find $1 -type d|wc -l)
+                                filecount=$(find $1 -type f|wc -l)
+                                echo "There are $dircount directories in the directory $1"
+                                echo "There are $filecount files in the directory $1"
+                        - chmod +x dirinfo.sh
+                        - ./dirinfo.sh /tmp
+ 
+        vi. Batch vs Concurrent Modes:
+                - BATCH MODE:
+                        - Commands run sequentially
+                          command1; command2
+                - CONCURRENT MODE:
+                        - Commands run in parallel
+                          command1 & command2
+12. Job Scheduling:
+        - Schedule jobs to run automatically at certain times
+        - Cron allows you to automate such task
+        - Cron is a service that runs jobs
+        - Crond interprets 'crontab files' and submits jobs to cron
+        - A Crontab is a table of jobs and schedule data 
+        - Crontab command invokes test editor to edit a crontab file
+
+        Scheduling Cron Jobs With Cron Tab:
+                - $ crontab -e #opens editor
+
+        Removing Cron Jobs With Cron Tab:
+                - $ crontab -e # add/remove cron job with editor
+        
+        Job Syntax:
+                - m h dom mon dow command
+                - mintute hour dayOfMonth month dayOfWeek 
+                - minute (0-59)
+                - hour(0-23, 0 = midnight)
+                - day (1-31)
+                - month (1-12)
+                - weekday (0-6, 0 = Sunday)
+        
+        Example Job:
+                - 30 15 * * 0 date >> sundays.txt
+                - 0 0 * * * /cron_scripts/load_data.sh
+                - 0 2 * * 0 /cron_scripts/backup_data.sh
+                - 0 21 * * * echo "Welcome to cron" >> /tmp/echo.txt
+                - * * * * * date >> /tmp/everymin.txt
+        
+        Terminal Commands:
+                - press crontab -e  :  cron jobs can be edited running
+                - crontab -l  :  list all cron jobs in the cron table 
+                - crontab -l | tail -5
+                - crontab -r  :  -r option causes the current crontab to be removed
+                - sudo service cron start
+                - sudo service cron stop
+
+        Example of Cronjob:
+                - Schedule a shell script
+                - Make the file name as ‘diskusage.sh’
+                        #! /bin/bash
+                        # print the current date time
+                        date
+                        # print the disk free statistics
+                        df -h
+                - chmod u+x diskusage.sh
+                - ./diskusage.sh
+                - crontab -e
+                - 0 0 * * * /home/project/diskusage.sh >>/home/project/diskusage.log
+                - crontab -l
+
+        
 
 
 COMMANDS:
@@ -105,6 +281,7 @@ COMMANDS:
                         %j  Display what day from 365
                         %A  Display what day from week (e.g: Friday)
                         %a  Display what day from week (e.g: Fri)
+                        %s  Display current timestamp in seconds
     _____________________
     * WORKING WITH FILES:
     _____________________
@@ -133,8 +310,7 @@ COMMANDS:
                 - wc -l fileName :  (how many lines in your file)
                 - wc -w fileName :  (how many words in your file)
                 - wc -c fileName :  (how many characters also counts new lines, each 1 character)
-    19 - grep - (return lines in file matching pattern)
-    20 - sort
+    20 -  
                 - sort fileName
                 - sort -r fileName
                 Note: 'r' means reverse order
@@ -144,9 +320,17 @@ COMMANDS:
     21 - grep
                 global regular expression print
                 return lines in file matching pattern, according to your search
+                below you are searching 'ab' character from file text.txt
                 - grep ab text.txt :  (Case-Sensitive)
-                        (you are searching 'ab' character from file text.txt)
-                - grep -i M text.txt :  (Not Case-Sensitive)
+                - grep -i M text.txt
+                - grep -n echo text.txt 
+                - df -h | grep overlay
+                Note:
+                        -n  Along with the matching lines, also print the line numbers
+                        -c  Get the count of matching lines
+                        -i  Ignore the case of the text while matching
+                        -v  Print all lines which do not contain the pattern
+                        -w  Match only if the pattern matches whole words
     22 - cut
                 extracts a selection from each line
                 extracts a field from each line
@@ -180,11 +364,14 @@ COMMANDS:
                 - ls -r :  (reverse the sort order)
                 - ls -R :  (recursively list all the directories and files, in your current directory tree)
                 - ls /home/username -l : (use this any where, because here you are using absolute path)
+                - ls -lS /bin | head -6
     21 - find files in directory tree
                 - find path(/home/) -name "filename"
                 - find . -name "a.txt" :  (case sensitive)
                 - find . -iname "a.txt" :  (not case sensitive)
                 - find /etc -name '*.txt' :  (finds all .txt files in the subfolders of the /etc directory)
+                -  find . -type d  :  (to search all directories)
+                -  find . -type f  :  (to search all files)
                 NOTE: "." -> represents current directory 
     22 - pwd - (get present working directory)
     23 - make directory
@@ -212,7 +399,8 @@ COMMANDS:
                 - echo "What is your \n name"
                 - echo -e "I will write \nin two lines"
                 - echo -e "I am using \tTab key"
-                Note: - \n (start with new lines)
+                Note:   
+                        - \n (start with new lines)
                         - \t (tab in your string)
                         - -e (for using special characters e.g: \n, \t)
     ____________________________
@@ -240,16 +428,156 @@ COMMANDS:
     _____________
     * NETWORKING:
     _____________
-    34 - hostname - (print hostname) 
-    35 - ping - (send packets to URL and print response)
-    36 - ifconfig - (display or configure system network interfaces)
-    37 - curl - (display contents of file at a URL)
-    38 - wget - (download file from URL)
+        34 - hostname
+                use to get or set the host name
+                - hostname
+                - hostname -s
+                - hostname -i
+                Note:
+                        -i : ip address
+                        -s : drop domain suffix if you have
+    35 - ping
+                send ICMP (Internet Control Message Protocol) packets to URL and print response. And also gives statistics
+                - ping www.google.com
+                - ping -c 3 google.com :  (after any number which you give, then it abbort)
+    36 - ifconfig
+                Interface Configuration
+                display information regarding all your device's communication devices
+                - ifconfig
+                - ifconfig eth0 :  Returns information about your ethernet adapter
+    37 - curl
+                returns the entire HTML content of the landing page at www.google.com
+                - curl www.google.com 
+    38 - wget
+                download file from URL, sends and receive data
     ____________________________
     * Managing File permissions:
     ____________________________
 
-    
+        _________________
+        * Shell Scripting
+        _________________
+        39 - Create the Shell Scripts:
+
+        Example # 1:
+                - touch hello_world.sh
+                - echo '#! /bin/bash' >> hello_world.sh
+                - echo 'echo hello world from Ahmed Raza Attari' >> hello_world.sh
+                - ls -l hello_world.sh
+                - Make it executable:
+                - chmod +x hello_world.sh
+                - ls -l hello_world.sh
+                Run your Bash Script:
+                - ./hello_world.sh
+
+        Example # 2:  (User Input)
+                - echo -n "Enter your name :"
+                - read name
+                - echo "Welcome $name"
+                - echo -n "Congratulations! You just created and ran your first shell script "
+                - sleep 2
+                - echo "using Bash on IBM Skills Network"
+                - Note:
+                        -n : new lines comes on this line
+                        sleep 3 : for delaying to 3 seconds
+
+        Example # 3: (User Argument)
+                - nano argument_prac.sh
+                        - #!/bin/bash
+                        - echo "my name is $1 $2 $3"
+                - chmod 777 argument_prac.sh 
+                - ./argument_prac.sh Ahmed Raza Attari
+                - Note:
+                        $1 : argument 1
+                        $2 : argument 2
+                        $3 : argument 3
+
+        Example # 4: (if_else)
+                - nano if_else.sh
+                        - #!/bin/bash   
+                        - if [ "$1" = "Like" ]
+                          then 
+                                echo "Hey please $1 like this video"
+                          else 
+                                echo "Okay then subscrine"
+                          fi
+                - chmod 777 if_else.sh
+                - ./if_else.sh like     OR ./if_else.sh else
+
+        Example # 5: (if_elseif_else)
+                - nano if_elseif_else.sh
+                        - #!/bin/bash
+                        - if [[ "$1" -gt "$2" && "$1" -gt "$3" ]]
+                        then
+                                echo "$1 is biggest from $2 and $3"
+                        elif [[ "$1" -lt "$2" && "$2" -gt "$3" ]]
+                        then
+                                echo "$2 is biggest from $1 and $3"
+                        else
+                                echo "$3 is biggest from $1 and $2"
+                        fi
+                - chmod +x if_elseif_else.sh 
+                - ./if_elseif_else 12 14 19
+
+        Example # 6: (loops basic)
+                - vim loops.sh
+                        - #!/bin/bash
+                        - for ((i=0; i<10; i++))
+                          do
+                                echo "$i"
+                          done
+                - chmod 777 loops.sh
+                - ./loops.sh
+        
+        Example # 7 : (loop in files)
+                - touch file-{1..12}.txt
+                - nano loops_file.sh
+                        - #!/bin/bash
+                        - for FILE in *.txt
+                          do
+                                  echo  $FILE
+                          done 
+                - chmod +x loops_file.sh
+                - ./loops_file.sh
+                Note: here we iterate our loop on current directory
+
+        Example # 8:
+
+
+
+
+
+
+
+
+
+
+
+
+        ______________
+        * Pipe Example
+        ______________
+
+        Example # 1:
+                - cat pets.txt
+                        goldfish
+                        dog
+                        cat
+                        parrot
+                        dog
+                        goldfish
+                        goldfish
+                - sort pets.txt | uniq
+
+        Example # 2:
+                - echo "Linux and shell scripting are awesome\!" | tr "aeiou" "_"
+                - echo "Linux and shell scripting are awesome\!" | tr -c "aeiou" "_"
+                Note: 
+                        -c : except "aeiou" change all to underscore
+
+
+* SHORTCUTS:
+        i - touch file-{1..12}.txt
     
     
 
@@ -259,4 +587,10 @@ Make Clone of these Webapps:
 i. chat app
 ii. open sea https://opensea.io/ or binance.com https://www.binance.com/en/nft/marketplace or from your own
 iv. coinmarketcap 
+
+
+
+
+FINAL PROJECT:
+
 

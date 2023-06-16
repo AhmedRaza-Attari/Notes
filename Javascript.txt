@@ -6,11 +6,25 @@ TOPICS:
 _______
 _______
 
+1. Array Method
+2. Truth Table
+3. Memory Allocation
+4. Array Cloning by Reference OR by Value
+5. Syntacting Sugar
+6. Addition of Two arrays
+7. Recursion
+8. Closures
+9. Foreach
+10. Filter
+11. Sort
+
+
+
 1. Array Method : i. map: When you want to perform an action on each element in a collection, and gather the results into a new array
 		  ii. reduce: When we want to get only one value from array we use reduce.
 
 
-1. TRUTH TABLE:
+2. TRUTH TABLE:
 _______________
 	
 Truth Table of Logical Not Operator
@@ -29,14 +43,14 @@ if (istrue === false) {  }
 we do this
 if (!istrue) {  } NOTE: We use this because it takes only "1 bit" space in memory
 
-2. MEMORY ALLOCATION:
+3. MEMORY ALLOCATION:
 _____________________
 
 i) let num = 12 (it takes '64 bit' floating point number(means point numbers are included))
 ii) let str = "Ahmed Raza Attari" (it takes '2 byte' per character including space) (17 * 2 = 34 byte)
 iii) let bol = true (it takes '1 bit')
 
-3. ARRAY CLONING BY REFERENCE OR BY VALUE:
+4. ARRAY CLONING BY REFERENCE OR BY VALUE:
 __________________________________________
 
 // CLONING BY REFERENCE: Here in cloning array it can copy by their reference not their value
@@ -78,11 +92,11 @@ __________________________________________
         console.log('Orignal Array: ', orignalArray);
         console.log('Cloning By Value Using SPREAD OPERATOR: ', cloningByValue);
 
-4. SYNTACTING SUGAR:
+5. SYNTACTING SUGAR:
 	Syntactic sugar is a term for a more concise syntax that provides the same functionality for something that already exists. It aims to help make code shorter, 
 	therefore, easier to write. No new functionality is introduced.
 
-5. ADDITION OF TWO ARRAYS:
+6. ADDITION OF TWO ARRAYS:
 
         // EXAMPLE # 1
         // Addition of Two Array
@@ -109,6 +123,125 @@ __________________________________________
         }
 
         console.log(box3);
+
+7. RECURSION: A function calls itself within its own definition.
+	
+  Example # 1:
+	function normalFun() {
+		console.log("First");
+		console.log("Second");
+		console.log("Third");
+		normalFun();
+	}
+
+
+  Example # 2:
+	let num = 12;
+	let fac = 1;
+	function factorial() {
+    		console.log(num);
+    		fac = fac * num;
+    		num--;
+    		if (num === 1) {
+        		return fac;
+    		}
+    		return factorial();
+	}
+
+	fun = factorial();
+	console.log(fun);
+
+8. CLOSURES:
+
+  Example # 1:
+	function closuresPrac(fname) {
+		return function(lname) {
+        		return fname + " " + lname
+    		}
+  	}
+
+	let a1 = closuresPrac("Ahmed");
+	console.log(a1("Raza"));
+
+  Example # 2:
+	function link() {
+   		return function (link) {
+        		fetch(link)
+      			.then(response => response.json())
+      			.then(json => console.log(json))
+    		}
+	}
+
+	let linkSave = link();
+	linkSave('https://jsonplaceholder.typicode.com/todos/1');
+	linkSave('https://jsonplaceholder.typicode.com/todos/12');
+
+9. FOR EACH:
+
+	let arr = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"];
+	arr.forEach(function(val, ind) {
+    		console.log(ind, val);
+	})
+
+10. FILTER:
+
+	let arr = [1,2,3,4,5,6,7,8,9,10];
+	let fiterArray = arr.filter(function(val){
+    		return val % 2 !== 0
+	})
+	console.log(fiterArray);
+
+11. SORT:
+
+	let arr = [10, 12, 11, 1, 5, 3, 7, 8, 2, 4, 9, 6];
+	let sortedArr = arr.sort(function(a, b) {
+    	if (a > b) {
+        	return 1;
+    	} else {
+        	return -1;
+    	}
+	})
+
+	console.log(sortedArr);
+
+12. REDUCE:
+
+  Example # 1:
+	let arr = [1, 3, 4, 5, 11, 84, 12];
+	let reduceArr = arr.reduce(function(preVal, currVal) {
+    		return preVal + currVal
+	}, 0)
+	console.log(reduceArr);
+
+  Example # 2:
+	let str = ["My", "name", "is", "Ahmed", "Raza", "Attari"];
+	let reduceString = str.reduce(function(preVal, currVal) {
+    		return preVal + " " + currVal
+	}, '')
+	console.log(reduceString);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
 
 
 
