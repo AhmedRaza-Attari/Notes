@@ -1,6 +1,14 @@
-NODE.Js
+REACT.Js
 _______
 
-    There are two different ways of Installing Node.Js
-        i. Download Node.js LTS Version
-        ii. Download NVM for using different Node.js versions
+
+In React we have two types of components
+    i. Statefull or Smart  (  Have State  ) :
+        - It's better to use less Stateful / Smart components, because if you use state component it will render many times.
+
+    ii. Stateless or Dumb  (  Have no State  ) :
+        - It's goood to use more Stateless / Dumb components.
+
+
+
+
